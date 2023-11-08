@@ -855,6 +855,31 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
   };
 }
 
+export interface ApiTeamTeam extends Schema.CollectionType {
+  collectionName: 'teams';
+  info: {
+    singularName: 'team';
+    pluralName: 'teams';
+    displayName: 'team';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    tag: Attribute.String & Attribute.Required & Attribute.Unique;
+    full_name: Attribute.String & Attribute.Required;
+    position: Attribute.String & Attribute.Required;
+    image: Attribute.Media & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -876,6 +901,7 @@ declare module '@strapi/types' {
       'api::product.product': ApiProductProduct;
       'api::products-slider.products-slider': ApiProductsSliderProductsSlider;
       'api::sub-category.sub-category': ApiSubCategorySubCategory;
+      'api::team.team': ApiTeamTeam;
     }
   }
 }
