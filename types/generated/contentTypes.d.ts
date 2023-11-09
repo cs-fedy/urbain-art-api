@@ -837,6 +837,9 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
       'manyToOne',
       'api::category.category'
     >;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.DefaultTo<'""'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

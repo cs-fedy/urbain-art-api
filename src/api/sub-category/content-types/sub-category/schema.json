@@ -26,6 +26,11 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "sub_categories"
+    },
+    "description": {
+      "type": "text",
+      "required": true,
+      "default": "\"\""
     }
   }
 }
