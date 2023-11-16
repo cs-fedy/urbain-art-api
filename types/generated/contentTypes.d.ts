@@ -682,7 +682,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   info: {
     singularName: 'category';
     pluralName: 'categories';
-    displayName: 'category';
+    displayName: 'Cat\u00E9gories';
     description: '';
   };
   options: {
@@ -750,7 +750,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
   info: {
     singularName: 'product';
     pluralName: 'products';
-    displayName: 'product';
+    displayName: 'Produits';
     description: '';
   };
   options: {
@@ -791,7 +791,7 @@ export interface ApiProductsSliderProductsSlider extends Schema.CollectionType {
   info: {
     singularName: 'products-slider';
     pluralName: 'products-sliders';
-    displayName: 'products slider';
+    displayName: 'Produits slider';
     description: '';
   };
   options: {
@@ -823,7 +823,7 @@ export interface ApiSubCategorySubCategory extends Schema.CollectionType {
   info: {
     singularName: 'sub-category';
     pluralName: 'sub-categories';
-    displayName: 'sub category';
+    displayName: 'Sous-cat\u00E9gories';
     description: '';
   };
   options: {
@@ -863,7 +863,8 @@ export interface ApiTeamTeam extends Schema.CollectionType {
   info: {
     singularName: 'team';
     pluralName: 'teams';
-    displayName: 'team';
+    displayName: 'Equipe';
+    description: '';
   };
   options: {
     draftAndPublish: true;
