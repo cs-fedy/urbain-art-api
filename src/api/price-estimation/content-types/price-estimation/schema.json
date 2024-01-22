@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "price_estimations",
+  "info": {
+    "singularName": "price-estimation",
+    "pluralName": "price-estimations",
+    "displayName": "Devis spécifique"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "full_name": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "required": true
+    },
+    "topic": {
+      "type": "string",
+
+
+      "required": true
+    },
+    "company_name": {
+      "type": "string",
+      "required": true
+    },
+    "tax_number": {
+      "type": "string"
+    },
+    "product": {
+      "type": "string",
+      "required": true
+    },
+    "request": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

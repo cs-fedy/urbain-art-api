@@ -21,13 +21,9 @@
       "type": "string",
       "required": true
     },
-    "sub_title": {
-      "type": "string",
-      "required": true
-    },
     "description": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "thumbnail": {
       "type": "media",
@@ -45,10 +41,20 @@
         "images"
       ]
     },
-    "sub_category": {
+    "dimensions": {
+      "type": "text"
+    },
+    "category": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::sub-category.sub-category"
+      "target": "api::category.category"
+    },
+    "catalog": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

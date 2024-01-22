@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_cart_items_articles_d_achats",
+  "info": {
+    "displayName": "Articles d'achat",
+    "icon": "shoppingCart",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "produit": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product"
+    },
+    "nombre_articles": {
+      "type": "integer"
+    }
+  }
+}

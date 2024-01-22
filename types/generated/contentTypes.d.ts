@@ -691,12 +691,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   attributes: {
     tag: Attribute.String & Attribute.Required & Attribute.Unique;
     title: Attribute.String & Attribute.Required;
-    image: Attribute.Media & Attribute.Required;
-    sub_categories: Attribute.Relation<
-      'api::category.category',
-      'oneToMany',
-      'api::sub-category.sub-category'
-    >;
+    description: Attribute.Text & Attribute.DefaultTo<'""'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -708,6 +703,41 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::category.category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiContactContact extends Schema.CollectionType {
+  collectionName: 'contacts';
+  info: {
+    singularName: 'contact';
+    pluralName: 'contacts';
+    displayName: 'Contact';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    full_name: Attribute.String & Attribute.Required;
+    email: Attribute.String & Attribute.Required;
+    phone_number: Attribute.BigInteger & Attribute.Required;
+    topic: Attribute.String & Attribute.Required;
+    message: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::contact.contact',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::contact.contact',
       'oneToOne',
       'admin::user'
     > &
@@ -745,6 +775,43 @@ export interface ApiNewsletterNewsletter extends Schema.CollectionType {
   };
 }
 
+export interface ApiPriceEstimationPriceEstimation
+  extends Schema.CollectionType {
+  collectionName: 'price_estimations';
+  info: {
+    singularName: 'price-estimation';
+    pluralName: 'price-estimations';
+    displayName: 'Devis sp\u00E9cifique';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    full_name: Attribute.String & Attribute.Required;
+    email: Attribute.String & Attribute.Required;
+    topic: Attribute.String & Attribute.Required;
+    company_name: Attribute.String & Attribute.Required;
+    tax_number: Attribute.String;
+    product: Attribute.String & Attribute.Required;
+    request: Attribute.Text & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::price-estimation.price-estimation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::price-estimation.price-estimation',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiProductProduct extends Schema.CollectionType {
   collectionName: 'products';
   info: {
@@ -759,15 +826,16 @@ export interface ApiProductProduct extends Schema.CollectionType {
   attributes: {
     tag: Attribute.String & Attribute.Required & Attribute.Unique;
     title: Attribute.String & Attribute.Required;
-    sub_title: Attribute.String & Attribute.Required;
-    description: Attribute.Text & Attribute.Required;
+    description: Attribute.Text;
     thumbnail: Attribute.Media & Attribute.Required;
     images: Attribute.Media & Attribute.Required;
-    sub_category: Attribute.Relation<
+    dimensions: Attribute.Text;
+    category: Attribute.Relation<
       'api::product.product',
       'oneToOne',
-      'api::sub-category.sub-category'
+      'api::category.category'
     >;
+    catalog: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -818,68 +886,39 @@ export interface ApiProductsSliderProductsSlider extends Schema.CollectionType {
   };
 }
 
-export interface ApiSubCategorySubCategory extends Schema.CollectionType {
-  collectionName: 'sub_categories';
+export interface ApiShoppingCartShoppingCart extends Schema.CollectionType {
+  collectionName: 'shopping_carts';
   info: {
-    singularName: 'sub-category';
-    pluralName: 'sub-categories';
-    displayName: 'Sous-cat\u00E9gories';
+    singularName: 'shopping-cart';
+    pluralName: 'shopping-carts';
+    displayName: "Panier d'achat";
     description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
-    tag: Attribute.String & Attribute.Required & Attribute.Unique;
-    title: Attribute.String & Attribute.Required;
-    category: Attribute.Relation<
-      'api::sub-category.sub-category',
-      'manyToOne',
-      'api::category.category'
-    >;
-    description: Attribute.Text &
-      Attribute.Required &
-      Attribute.DefaultTo<'""'>;
+    full_name: Attribute.String & Attribute.Required;
+    email: Attribute.String & Attribute.Required;
+    phone_number: Attribute.BigInteger;
+    topic: Attribute.String & Attribute.Required;
+    message: Attribute.Text & Attribute.Required;
+    CartItems: Attribute.Component<'cart-items.articles-d-achat', true> &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::sub-category.sub-category',
+      'api::shopping-cart.shopping-cart',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::sub-category.sub-category',
+      'api::shopping-cart.shopping-cart',
       'oneToOne',
       'admin::user'
     > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiTeamTeam extends Schema.CollectionType {
-  collectionName: 'teams';
-  info: {
-    singularName: 'team';
-    pluralName: 'teams';
-    displayName: 'Equipe';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    tag: Attribute.String & Attribute.Required & Attribute.Unique;
-    full_name: Attribute.String & Attribute.Required;
-    position: Attribute.String & Attribute.Required;
-    image: Attribute.Media & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<'api::team.team', 'oneToOne', 'admin::user'> &
       Attribute.Private;
   };
 }
@@ -901,11 +940,12 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
       'api::category.category': ApiCategoryCategory;
+      'api::contact.contact': ApiContactContact;
       'api::newsletter.newsletter': ApiNewsletterNewsletter;
+      'api::price-estimation.price-estimation': ApiPriceEstimationPriceEstimation;
       'api::product.product': ApiProductProduct;
       'api::products-slider.products-slider': ApiProductsSliderProductsSlider;
-      'api::sub-category.sub-category': ApiSubCategorySubCategory;
-      'api::team.team': ApiTeamTeam;
+      'api::shopping-cart.shopping-cart': ApiShoppingCartShoppingCart;
     }
   }
 }
